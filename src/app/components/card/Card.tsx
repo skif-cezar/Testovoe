@@ -97,7 +97,7 @@ export const Card: React.FC = () => {
       <Information>
         <div>
           <Price>0 000 ₽</Price>
-          <LikeIcon>Like</LikeIcon>
+          <LikeIcon>Понравилось</LikeIcon>
         </div>
         <div>
           <Title>Название товарной позиции</Title>
