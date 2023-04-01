@@ -1,13 +1,20 @@
+import React, {useContext} from "react";
 import styled from "styled-components";
 import likeImg from "src/resources/like-icon.svg";
+import {AdContext, StoreInterface} from "src/app/logic/store/Store";
 
 /**
  * Card component
  */
 export const Card: React.FC = () => {
+  const adContext: StoreInterface = useContext(AdContext);
+
   const CardContainer = styled.div`
-    width: 224px;
-    height: 364px;
+    display: flex;
+    flex-direction: ${adContext.view ? "column" : "row"};
+    max-width: ${adContext.view ? "224px" : "472px"};
+    width: 100%;
+    height: ${adContext.view ? "364px" : "134px"};
     filter: drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.08));
     border-radius: 12px;
     transition: all 0.5s ease;
@@ -18,28 +25,36 @@ export const Card: React.FC = () => {
     }
   `;
   const ImgContainer = styled.div`
-    width: 224px;
-    height: 260px;
+    flex-shrink: 0;
+    width: ${adContext.view ? "224px" : "156px"};
+    height: ${adContext.view ? "260px" : "134px"};
     border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-top-right-radius: ${adContext.view ? "12px" : "0px"};
+    border-bottom-left-radius: ${adContext.view ? "0px" : "12px"};
     background: #e8e8e8;
   `;
   const Information = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    padding: 10px 12px 19px 10px;
-    border-bottom-left-radius: 12px;
+    padding: ${adContext.view ? "10px 12px 19px 10px" : "10px 12px 19px 12px"};
+    border-top-right-radius: ${adContext.view ? "0px" : "12px"};
+    border-bottom-left-radius: ${adContext.view ? "12px" : "0px"};
     border-bottom-right-radius: 12px;
     font-family: "Ubuntu";
     font-style: normal;
     background: #ffffff;
     color: #2c2c2c;
+    box-sizing: border-box;
     & div:first-child,
     & div:last-child {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    & div:nth-child(3) {
+      margin-top: ${adContext.view ? "0px" : "30px"};
     }
   `;
   const Price = styled.span`
