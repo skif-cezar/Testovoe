@@ -1,5 +1,7 @@
 import React from "react";
 import {Button} from "./components/buttons/Button";
+import {ListButton} from "./components/buttons/ListButton";
+import {TileButton} from "./components/buttons/TileButton";
 import {TopButton} from "./components/buttons/TopButton";
 import {Card} from "./components/card/Card";
 import {Loader} from "./components/loader/Loader";
@@ -19,6 +21,8 @@ export const App: React.FC = () => {
         <Button text="Повторить попытку" />
         <TopButton text="Вверх" />
         <Viewed text="Просмотрено" />
+        <TileButton />
+        <ListButton />
       </>
     </AdProvider>
   );
