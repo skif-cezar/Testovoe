@@ -21,8 +21,8 @@ export const TopButton: React.FC<ButtonProps> = (props: ButtonProps) => {
     padding: 17px 19px 17px 18.5px;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 0.875rem;
+    line-height: 1rem;
     color: #8f8f8f;
     background: #ffffff;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.08);

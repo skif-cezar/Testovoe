@@ -59,24 +59,24 @@ export const Card: React.FC = () => {
   `;
   const Price = styled.span`
     font-weight: 700;
-    font-size: 22px;
-    line-height: 25px;
+    font-size: 1.375rem;
+    line-height: 1.5625rem;
   `;
   const Title = styled.span`
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 0.875rem;
+    line-height: 1rem;
   `;
   const City = styled.span`
     font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 0.75rem;
+    line-height: 0.875rem;
     color: #8f8f8f;
   `;
   const Date = styled.span`
     font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 0.75rem;
+    line-height: 0.875rem;
     color: #8f8f8f;
   `;
   const LikeIcon = styled.span`

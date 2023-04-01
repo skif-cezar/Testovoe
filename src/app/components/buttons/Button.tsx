@@ -16,8 +16,8 @@ export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     padding: 8px 15px;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 0.875rem;
+    line-height: 1rem;
     color: #00a0ab;
     background: #ffffff;
     border-radius: 45px;

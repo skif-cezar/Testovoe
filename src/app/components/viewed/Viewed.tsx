@@ -18,8 +18,8 @@ export const Viewed: React.FC<ViewedProps> = (props: ViewedProps) => {
     padding: 5px 8px;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 0.75rem;
+    line-height: 0.875rem;
     text-align: center;
     color: #2c2c2c;
     background: rgba(255, 255, 255, 0.9);
