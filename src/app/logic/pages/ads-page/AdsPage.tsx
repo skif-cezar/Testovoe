@@ -8,6 +8,14 @@ import {Navigation} from "src/app/components/navigation/Navigation";
 import {animateScroll as scroll} from "react-scroll";
 import {TopButton} from "src/app/components/buttons/TopButton";
 import {Loader} from "src/app/components/loader/Loader";
+import {ErrorMessage} from "src/app/components/error/ErrorMessage";
+import {useNavigate} from "react-router-dom";
+import {NOT_FOUND_PAGE_PATH} from "src/app/components/not-found/NotFoundAds";
+
+/**
+ * Path ads page
+ */
+export const MAIN_PAGE_PATH = "/";
 
 type AdsPageData = {
   items: [];
@@ -47,9 +55,11 @@ const MoreButton = styled.div`
  */
 export const AdsPage: React.FC = () => {
   const adContext: StoreInterface = useContext(AdContext);
+  const navigation = useNavigate();
   const [toTopButton, setToTopButton] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(0);
+  const [error, setError] = useState(false);
 
   // const rowSkeletons = 20;
 
@@ -60,9 +70,17 @@ export const AdsPage: React.FC = () => {
       const response = await axios.get<AdsPageData>(url);
       setCurrentPage((prevState: number) => {return prevState + 1;});
       setAllPage(response.data.pages);
+      setError(false);
+
+      if(response.data.items.length === 0) {
+        navigation(NOT_FOUND_PAGE_PATH);
+      }
 
       return [...adContext.ads, ...response.data.items];
     } catch (err) {
+      setError(true);
+      adContext.setLoading(false);
+
       return [];
     }
   }
@@ -129,7 +147,7 @@ export const AdsPage: React.FC = () => {
               }}
             />
           )}
-
+          {error && (<ErrorMessage onClick={showMoreAds} />)}
         </MoreButton>
       )}
 

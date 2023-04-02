@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+/**
+ * Path not found page
+ */
+export const NOT_FOUND_PAGE_PATH = "/not-found";
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
