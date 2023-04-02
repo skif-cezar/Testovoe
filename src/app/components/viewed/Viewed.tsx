@@ -8,7 +8,7 @@ interface ViewedProps {
 }
 
 /**
- * Viewed component
+ * Viewed component. Appears on the card of ads that have been viewed
  */
 export const Viewed: React.FC<ViewedProps> = (props: ViewedProps) => {
   const ViewedComponent = styled.span`
