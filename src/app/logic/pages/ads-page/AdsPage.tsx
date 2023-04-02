@@ -47,15 +47,20 @@ const MoreButton = styled.div`
 export const AdsPage: React.FC = () => {
   const adContext: StoreInterface = useContext(AdContext);
   const [toTopButton, setToTopButton] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allPage, setAllPage] = useState(0);
 
   // const rowSkeletons = 20;
 
   // Receive ads on demand
   async function getAds(): Promise<AdData[]> {
     // try {
-    const url = "https://testguru.ru/frontend-test/api/v1/items?page=2";
+    const url = `https://testguru.ru/frontend-test/api/v1/items?page=${currentPage}`;
     const response = await axios.get<AdsPageData>(url);
-    return response.data.items;
+    setCurrentPage((prevState: number) => {return prevState + 1;});
+    setAllPage(response.data.pages);
+
+    return [...adContext.ads, ...response.data.items];
     // } catch (err) {
     //   console.log(err);
     //   return [];
@@ -64,15 +69,19 @@ export const AdsPage: React.FC = () => {
 
   // Adding received ads to the state and hide loader
   useEffect(() => {
-    (async () => {
-      const adsData = await getAds();
-      adContext.setAds(adsData);
-      adContext.setLoading(false);
-    })();
-  }, []);
+    if (adContext.loading) {
+      (async () => {
+        const adsData = await getAds();
+        adContext.setAds(adsData);
+        adContext.setLoading(false);
+      })();
+    }
+  }, [adContext.loading]);
 
-  // eslint-disable-next-line no-console
-  console.log(adContext.loading);
+  // Show more ads
+  const showMoreAds = (): void => {
+    adContext.setLoading(true);
+  };
 
   // Show button when scrolling page by 100px
   useEffect(() => {
@@ -110,9 +119,17 @@ export const AdsPage: React.FC = () => {
             );
           })}
       </AdsContainer>
-      <MoreButton>
-        <Button text="Показать еще" />
-      </MoreButton>
+
+      {(currentPage <= allPage) && (
+        <MoreButton>
+          <Button
+            text="Показать еще" onClick={() => {
+              return showMoreAds();
+            }}
+          />
+        </MoreButton>
+      )}
+
       {toTopButton && (
         <TopButton
           text="Вверх"

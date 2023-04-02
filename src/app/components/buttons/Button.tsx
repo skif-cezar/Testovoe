@@ -5,6 +5,11 @@ import styled from "styled-components";
  */
 interface ButtonProps {
   text: string;
+
+  /**
+   * Callback triggered on click
+   */
+  onClick: () => void;
 }
 
 const ButtonComponent = styled.button`
@@ -29,5 +34,5 @@ const ButtonComponent = styled.button`
  * Button component
  */
 export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
-  return <ButtonComponent>{props.text}</ButtonComponent>;
+  return <ButtonComponent onClick={props.onClick}>{props.text}</ButtonComponent>;
 };
