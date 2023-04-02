@@ -7,6 +7,7 @@ import {Button} from "src/app/components/buttons/Button";
 import {Navigation} from "src/app/components/navigation/Navigation";
 import {animateScroll as scroll} from "react-scroll";
 import {TopButton} from "src/app/components/buttons/TopButton";
+import {Loader} from "src/app/components/loader/Loader";
 
 type AdsPageData = {
   items: [];
@@ -54,17 +55,16 @@ export const AdsPage: React.FC = () => {
 
   // Receive ads on demand
   async function getAds(): Promise<AdData[]> {
-    // try {
-    const url = `https://testguru.ru/frontend-test/api/v1/items?page=${currentPage}`;
-    const response = await axios.get<AdsPageData>(url);
-    setCurrentPage((prevState: number) => {return prevState + 1;});
-    setAllPage(response.data.pages);
+    try {
+      const url = `https://testguru.ru/frontend-test/api/v1/items?page=${currentPage}`;
+      const response = await axios.get<AdsPageData>(url);
+      setCurrentPage((prevState: number) => {return prevState + 1;});
+      setAllPage(response.data.pages);
 
-    return [...adContext.ads, ...response.data.items];
-    // } catch (err) {
-    //   console.log(err);
-    //   return [];
-    // }
+      return [...adContext.ads, ...response.data.items];
+    } catch (err) {
+      return [];
+    }
   }
 
   // Adding received ads to the state and hide loader
@@ -122,11 +122,14 @@ export const AdsPage: React.FC = () => {
 
       {(currentPage <= allPage) && (
         <MoreButton>
-          <Button
-            text="Показать еще" onClick={() => {
-              return showMoreAds();
-            }}
-          />
+          {adContext.loading ? (<Loader />) : (
+            <Button
+              text="Показать еще" onClick={() => {
+                return showMoreAds();
+              }}
+            />
+          )}
+
         </MoreButton>
       )}
 
