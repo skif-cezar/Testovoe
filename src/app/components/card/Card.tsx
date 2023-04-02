@@ -4,6 +4,7 @@ import likeImg from "src/resources/like-icon.svg";
 import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import {Viewed} from "src/app/components/viewed/Viewed";
 
 /**
  * Card component
@@ -19,14 +20,9 @@ export const Card: React.FC<AdData> = (props: AdData) => {
   const minutes = dateValue.getMinutes().toString().padStart(2, "0");
   const fullDate = `${day}.${month}.${year}`;
   const fullTime = `${hour}.${minutes}`;
-  /* const dateValue = new Date(props.createdAt);
-  const year = dateValue.getFullYear().toString().slice(2);
-  const month = (dateValue.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateValue.getDate().toString().padStart(2, "0");
-  const fullDate = `${day}.${month}.${year}`;
-  const fullTime = new Date(props.createdAt.match(/^[^ ]+/)![0]); */
 
   const CardContainer = styled.div`
+    position: relative;
     display: flex;
     flex-direction: ${adContext.view ? "column" : "row"};
     max-width: ${adContext.view ? "224px" : "472px"};
@@ -40,6 +36,14 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     &:focus {
       filter: drop-shadow(0px 0px 11px rgba(0, 0, 0, 0.31));
     }
+  `;
+  const ViewedContainer = styled.div`
+    position: absolute;
+    top: 11px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
   `;
   const ImgContainer = styled.div`
     flex-shrink: 0;
@@ -170,6 +174,12 @@ export const Card: React.FC<AdData> = (props: AdData) => {
 
   return (
     <CardContainer>
+      {props.seen && (
+        <ViewedContainer>
+          <Viewed text="Просмотрено" />
+        </ViewedContainer>
+      )}
+
       <ImgContainer>
         <picture>
           <img src="../s" alt="" />
