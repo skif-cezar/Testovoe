@@ -6,6 +6,11 @@ import arrowIcon from "src/resources/arrow-icon.svg";
  */
 interface ButtonProps {
   text: string;
+
+  /**
+   * Callback triggered on click
+   */
+  onClick: () => void;
 }
 
 /**
@@ -13,6 +18,9 @@ interface ButtonProps {
  */
 export const TopButton: React.FC<ButtonProps> = (props: ButtonProps) => {
   const TopButtonComponent = styled.button`
+    position: fixed;
+    bottom: 63px;
+    right: 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,5 +52,5 @@ export const TopButton: React.FC<ButtonProps> = (props: ButtonProps) => {
     }
   `;
 
-  return <TopButtonComponent>{props.text}</TopButtonComponent>;
+  return <TopButtonComponent onClick={props.onClick}>{props.text}</TopButtonComponent>;
 };

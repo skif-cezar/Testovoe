@@ -1,22 +1,42 @@
+import {useEffect, useState} from "react";
 import {Card} from "src/app/components/card/Card";
 import styled from "styled-components";
 import {Button} from "src/app/components/buttons/Button";
 import {Navigation} from "src/app/components/navigation/Navigation";
+import {animateScroll as scroll} from "react-scroll";
+import {TopButton} from "src/app/components/buttons/TopButton";
 
 /**
  * AdsPage component
  */
 export const AdsPage: React.FC = () => {
+  const [toTopButton, setToTopButton] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setToTopButton(true);
+      } else {
+        setToTopButton(false);
+      }
+    });
+  }, [toTopButton]);
+
+  const scrollUp = (): void => {
+    return scroll.scrollToTop();
+  };
+
   const Wrapper = styled.div`
+    position: relative;
     max-width: 1280px;
     width: 100%;
-	 margin: 0 auto;
+    margin: 0 auto;
     padding: 35px 35px 31px 35px;
   `;
   const AdsContainer = styled.section`
     display: flex;
     gap: 24px;
-	 max-width: 968px;
+    max-width: 968px;
     width: 100%;
     margin: 26px auto 0px auto;
     flex-wrap: wrap;
@@ -52,6 +72,14 @@ export const AdsPage: React.FC = () => {
       <MoreButton>
         <Button text="Показать еще" />
       </MoreButton>
+      {toTopButton && (
+        <TopButton
+          text="Вверх"
+          onClick={() => {
+            return scrollUp();
+          }}
+        />
+      )}
     </Wrapper>
   );
 };
