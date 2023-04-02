@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
+import useLocalStorageState from "use-local-storage-state";
 import likeImg from "src/resources/like-icon.svg";
 import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
 import Skeleton from "react-loading-skeleton";
@@ -20,6 +21,11 @@ export const Card: React.FC<AdData> = (props: AdData) => {
   const minutes = dateValue.getMinutes().toString().padStart(2, "0");
   const fullDate = `${day}.${month}.${year}`;
   const fullTime = `${hour}.${minutes}`;
+  const [like, setLike] = useLocalStorageState("like", {defaultValue: [""]});
+
+  const onClickLike = (id: string): void => {
+    setLike([...like, id]);
+  };
 
   const CardContainer = styled.div`
     position: relative;
@@ -100,12 +106,12 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     line-height: 0.875rem;
     color: #8f8f8f;
   `;
-  const LikeIcon = styled.span`
+  const LikeIcon = styled.button`
     display: inline-block;
     width: 20px;
     height: 19px;
     font-size: 0;
-    background-color: #c7c7c7;
+    background-color: ${(like.some((id: string) => {return id === props.id;})) ? "#00a0ab" : "#c7c7c7"};
     -webkit-mask-image: url(${likeImg});
     -webkit-mask-position: center;
     -webkit-mask-repeat: no-repeat;
@@ -114,6 +120,9 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: cover;
+    outline: none;
+    border: none;
+    cursor: pointer;
     &:hover,
     &:focus {
       background-color: #a4a4a4;
@@ -188,7 +197,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
       <Information>
         <div>
           <Price>{`${props.price} ₽`}</Price>
-          <LikeIcon>Понравилось</LikeIcon>
+          <LikeIcon onClick={() => {return onClickLike(props.id);}}>Понравилось</LikeIcon>
         </div>
         <div>
           <Title>{props.title}</Title>
