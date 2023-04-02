@@ -1,4 +1,5 @@
 import {createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useState} from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 export type AdData = {
   id: string;
@@ -49,7 +50,7 @@ export interface StoreInterface {
  * Store for an Ad store
  */
 export const useAdStore = (): StoreInterface => {
-  const [view, setView] = useState<boolean>(true);
+  const [view, setView] = useLocalStorageState("view", {defaultValue: true});
   const [ads, setAds] = useState<[] | AdData[]>([]);
   const [loading, setLoading] = useState(true);
 

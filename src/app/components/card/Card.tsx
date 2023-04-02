@@ -28,7 +28,6 @@ export const Card: React.FC<AdData> = (props: AdData) => {
   };
 
   const CardContainer = styled.div`
-    position: relative;
     display: flex;
     flex-direction: ${adContext.view ? "column" : "row"};
     max-width: ${adContext.view ? "224px" : "472px"};
@@ -52,6 +51,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     text-align: center;
   `;
   const ImgContainer = styled.div`
+    position: relative;
     flex-shrink: 0;
     width: ${adContext.view ? "224px" : "156px"};
     height: ${adContext.view ? "260px" : "134px"};
@@ -123,8 +123,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     outline: none;
     border: none;
     cursor: pointer;
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: #a4a4a4;
     }
     &:active {
@@ -183,13 +182,12 @@ export const Card: React.FC<AdData> = (props: AdData) => {
 
   return (
     <CardContainer>
-      {props.seen && (
-        <ViewedContainer>
-          <Viewed text="Просмотрено" />
-        </ViewedContainer>
-      )}
-
       <ImgContainer>
+        {props.seen && (
+          <ViewedContainer>
+            <Viewed text="Просмотрено" />
+          </ViewedContainer>
+        )}
         <picture>
           <img src="../s" alt="" />
         </picture>

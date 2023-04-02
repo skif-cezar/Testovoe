@@ -28,8 +28,7 @@ const ButtonComponent = styled.button`
   font-size: 0;
   border: none;
   cursor: pointer;
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: #a4a4a4;
   }
   &:active {
