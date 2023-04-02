@@ -1,5 +1,15 @@
 import {createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useState} from "react";
 
+export type AdData = {
+  id: string;
+  seen: boolean;
+  price: number;
+  title: string;
+  address: string;
+  about: string;
+  createdAt: string;
+};
+
 /**
  * Store interface
  */
@@ -13,6 +23,26 @@ export interface StoreInterface {
    * Set content display view
    */
   setView: Dispatch<SetStateAction<boolean>>;
+
+  /**
+   * Content display view
+   */
+  ads: AdData[];
+
+  /**
+   * Set content display view
+   */
+  setAds: Dispatch<SetStateAction<AdData[]>>;
+
+  /**
+   * Content display view
+   */
+  loading: boolean;
+
+  /**
+   * Set content display view
+   */
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 /**
@@ -20,10 +50,14 @@ export interface StoreInterface {
  */
 export const useAdStore = (): StoreInterface => {
   const [view, setView] = useState<boolean>(true);
+  const [ads, setAds] = useState<[] | AdData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   return {
     view,
     setView,
+    ads, setAds,
+    loading, setLoading,
   };
 };
 

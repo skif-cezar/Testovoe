@@ -4,6 +4,20 @@ import {TileButton} from "src/app/components/buttons/TileButton";
 import {AdContext, StoreInterface} from "src/app/logic/store/Store";
 import styled from "styled-components";
 
+const NavigationContainer = styled.nav`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+`;
+const ViewButtons = styled.ul`
+  display: flex;
+  column-gap: 16px;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+`;
+
 /**
  * Navigation component. Buttons for selecting the view of display of ads
  */
@@ -14,28 +28,22 @@ export const Navigation: React.FC = () => {
     adContext.setView(userChoice);
   };
 
-  const NavigationContainer = styled.nav`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-  `;
-  const ViewButtons = styled.ul`
-    display: flex;
-    column-gap: 16px;
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-  `;
-
   return (
     <NavigationContainer>
       <ViewButtons>
         <li>
-          <TileButton onClick={() => {return onClick(true);}} />
+          <TileButton
+            onClick={() => {
+              return onClick(true);
+            }}
+          />
         </li>
         <li>
-          <ListButton onClick={() => {return onClick(false);}} />
+          <ListButton
+            onClick={() => {
+              return onClick(false);
+            }}
+          />
         </li>
       </ViewButtons>
     </NavigationContainer>

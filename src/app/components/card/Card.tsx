@@ -1,13 +1,30 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
 import likeImg from "src/resources/like-icon.svg";
-import {AdContext, StoreInterface} from "src/app/logic/store/Store";
+import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 /**
  * Card component
  */
-export const Card: React.FC = () => {
+export const Card: React.FC<AdData> = (props: AdData) => {
   const adContext: StoreInterface = useContext(AdContext);
+
+  const dateValue = new Date(props.createdAt.match(/^[^ ]+/)![0]);
+  const year = dateValue.getFullYear().toString().slice(2);
+  const month = (dateValue.getMonth() + 1).toString().padStart(2, "0");
+  const day = dateValue.getDate().toString().padStart(2, "0");
+  const hour = dateValue.getHours().toString().padStart(2, "0");
+  const minutes = dateValue.getMinutes().toString().padStart(2, "0");
+  const fullDate = `${day}.${month}.${year}`;
+  const fullTime = `${hour}.${minutes}`;
+  /* const dateValue = new Date(props.createdAt);
+  const year = dateValue.getFullYear().toString().slice(2);
+  const month = (dateValue.getMonth() + 1).toString().padStart(2, "0");
+  const day = dateValue.getDate().toString().padStart(2, "0");
+  const fullDate = `${day}.${month}.${year}`;
+  const fullTime = new Date(props.createdAt.match(/^[^ ]+/)![0]); */
 
   const CardContainer = styled.div`
     display: flex;
@@ -73,7 +90,7 @@ export const Card: React.FC = () => {
     line-height: 0.875rem;
     color: #8f8f8f;
   `;
-  const Date = styled.span`
+  const FullDate = styled.span`
     font-weight: 400;
     font-size: 0.75rem;
     line-height: 0.875rem;
@@ -102,6 +119,55 @@ export const Card: React.FC = () => {
     }
   `;
 
+  if (adContext.loading) {
+    const rows = [];
+    const rowSkeletons = 20;
+
+    for (let index = 0; index < rowSkeletons; index += 1) {
+      rows.push(
+        <CardContainer>
+          <ImgContainer>
+            <Skeleton
+              width={adContext.view ? "224" : "156"}
+              height={adContext.view ? "260" : "134"}
+            />
+          </ImgContainer>
+          <Information>
+            <div>
+              <Skeleton width={adContext.view ? "166" : "256"} height={25} />
+              <Skeleton width={25} height={25} />
+            </div>
+            <div>
+              <Skeleton width={adContext.view ? "200" : "292"} height={16} />
+            </div>
+            {adContext.view && (
+              <div>
+                <Skeleton width={200} height={14} />
+              </div>
+            )}
+            {!adContext.view && (
+              <div>
+                <Skeleton width={177} height={14} />
+                <Skeleton width={107} height={14} />
+              </div>
+            )}
+          </Information>
+        </CardContainer>,
+      );
+    }
+
+    /* return (
+      <SkeletonTheme color="#F5F5F5" highlightColor="#ffffff">
+        <GalleryStyles className="gallery__grid">
+          <h2 className="gallery__title">
+            <Skeleton />
+          </h2>
+          <div className="gallery__grid">{rows}</div>
+        </GalleryStyles>
+      </SkeletonTheme>
+    ); */
+  }
+
   return (
     <CardContainer>
       <ImgContainer>
@@ -111,15 +177,15 @@ export const Card: React.FC = () => {
       </ImgContainer>
       <Information>
         <div>
-          <Price>0 000 ₽</Price>
+          <Price>{`${props.price} ₽`}</Price>
           <LikeIcon>Понравилось</LikeIcon>
         </div>
         <div>
-          <Title>Название товарной позиции</Title>
+          <Title>{props.title}</Title>
         </div>
         <div>
-          <City>Город </City>
-          <Date>00.00.00, 00.00</Date>
+          <City>{props.address}</City>
+          <FullDate>{`${fullDate}, ${fullTime}`}</FullDate>
         </div>
       </Information>
     </CardContainer>
