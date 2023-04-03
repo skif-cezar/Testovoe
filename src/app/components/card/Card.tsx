@@ -21,7 +21,9 @@ export const Card: React.FC<AdData> = (props: AdData) => {
   const fullTime = `${hour}.${minutes}`;
   const [like, setLike] = useLocalStorageState("like", {defaultValue: [""]});
 
-  const onClickLike = (id: string): void => {
+  const onClickLike = (e: React.MouseEvent<HTMLElement>, id: string): void => {
+    e.preventDefault();
+    e.stopPropagation();
     setLike([...like, id]);
   };
 
@@ -144,7 +146,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
       <Information>
         <div>
           <Price>{`${props.price} ₽`}</Price>
-          <LikeIcon onClick={() => {return onClickLike(props.id);}}>Понравилось</LikeIcon>
+          <LikeIcon onClick={(e: React.MouseEvent<HTMLElement>) => {return onClickLike(e, props.id);}}>Понравилось</LikeIcon>
         </div>
         <div>
           <Title>{props.title}</Title>

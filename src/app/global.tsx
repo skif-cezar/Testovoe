@@ -24,4 +24,8 @@ html, body, #root {
   color: #8f8f8f;
   letter-spacing: 0.1px;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;

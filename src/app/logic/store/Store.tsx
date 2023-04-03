@@ -9,6 +9,7 @@ export type AdData = {
   address: string;
   about: string;
   createdAt: string;
+  detail?: string;
 };
 
 /**
