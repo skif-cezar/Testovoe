@@ -4,6 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import likeImg from "src/resources/like-icon.svg";
 import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
 import {Viewed} from "src/app/components/viewed/Viewed";
+import {Slider} from "../slider/Slider";
 
 /**
  * Card component
@@ -165,9 +166,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
             <Viewed text="Просмотрено" />
           </ViewedContainer>
         )}
-        <picture>
-          <img src="../s" alt="" />
-        </picture>
+        <Slider />
       </ImgContainer>
       <Information>
         <div>
