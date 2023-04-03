@@ -1,4 +1,7 @@
+import {useContext} from "react";
+import {AdContext, StoreInterface} from "src/app/logic/store/Store";
 import styled from "styled-components";
+import {SkeletonButton} from "./SkeletonButton";
 
 /**
  * Button props
@@ -34,5 +37,13 @@ const ButtonComponent = styled.button`
  * Button component
  */
 export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+  const adContext: StoreInterface = useContext(AdContext);
+
+  if (adContext.loading) {
+    return (
+      <SkeletonButton />
+    );
+  }
+
   return <ButtonComponent onClick={props.onClick}>{props.text}</ButtonComponent>;
 };

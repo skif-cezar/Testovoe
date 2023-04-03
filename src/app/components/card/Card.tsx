@@ -3,8 +3,6 @@ import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 import likeImg from "src/resources/like-icon.svg";
 import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import {Viewed} from "src/app/components/viewed/Viewed";
 
 /**
@@ -130,55 +128,6 @@ export const Card: React.FC<AdData> = (props: AdData) => {
       background-color: #00a0ab;
     }
   `;
-
-  if (adContext.loading) {
-    const rows = [];
-    const rowSkeletons = 20;
-
-    for (let index = 0; index < rowSkeletons; index += 1) {
-      rows.push(
-        <CardContainer>
-          <ImgContainer>
-            <Skeleton
-              width={adContext.view ? "224" : "156"}
-              height={adContext.view ? "260" : "134"}
-            />
-          </ImgContainer>
-          <Information>
-            <div>
-              <Skeleton width={adContext.view ? "166" : "256"} height={25} />
-              <Skeleton width={25} height={25} />
-            </div>
-            <div>
-              <Skeleton width={adContext.view ? "200" : "292"} height={16} />
-            </div>
-            {adContext.view && (
-              <div>
-                <Skeleton width={200} height={14} />
-              </div>
-            )}
-            {!adContext.view && (
-              <div>
-                <Skeleton width={177} height={14} />
-                <Skeleton width={107} height={14} />
-              </div>
-            )}
-          </Information>
-        </CardContainer>,
-      );
-    }
-
-    /* return (
-      <SkeletonTheme color="#F5F5F5" highlightColor="#ffffff">
-        <GalleryStyles className="gallery__grid">
-          <h2 className="gallery__title">
-            <Skeleton />
-          </h2>
-          <div className="gallery__grid">{rows}</div>
-        </GalleryStyles>
-      </SkeletonTheme>
-    ); */
-  }
 
   return (
     <CardContainer>

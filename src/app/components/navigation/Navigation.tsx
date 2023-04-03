@@ -3,8 +3,11 @@ import {ListButton} from "src/app/components/buttons/ListButton";
 import {TileButton} from "src/app/components/buttons/TileButton";
 import {AdContext, StoreInterface} from "src/app/logic/store/Store";
 import styled from "styled-components";
+import {SkeletonNavigation} from "./SkeletonNavigation";
 
 const NavigationContainer = styled.nav`
+  margin-top: -4px;
+  height: 39px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,6 +30,14 @@ export const Navigation: React.FC = () => {
   const onClick = (userChoice: boolean): void => {
     adContext.setView(userChoice);
   };
+
+  if (adContext.loading) {
+    return (
+      <NavigationContainer>
+        <SkeletonNavigation />
+      </NavigationContainer>
+    );
+  }
 
   return (
     <NavigationContainer>

@@ -1,7 +1,6 @@
 import {useEffect, useState, useContext} from "react";
 import axios from "axios";
 import {AdContext, StoreInterface, AdData} from "src/app/logic/store/Store";
-import {Card} from "src/app/components/card/Card";
 import styled from "styled-components";
 import {Button} from "src/app/components/buttons/Button";
 import {Navigation} from "src/app/components/navigation/Navigation";
@@ -11,6 +10,7 @@ import {Loader} from "src/app/components/loader/Loader";
 import {ErrorMessage} from "src/app/components/error/ErrorMessage";
 import {useNavigate} from "react-router-dom";
 import {NOT_FOUND_PAGE_PATH} from "src/app/components/not-found/NotFoundAds";
+import {AdsContainer} from "src/app/components/container-ads/AdsContainer";
 
 /**
  * Path ads page
@@ -32,19 +32,6 @@ const Wrapper = styled.div`
   margin: 0 auto;
   padding: 35px 35px 31px 35px;
 `;
-const AdsContainer = styled.section`
-  display: flex;
-  gap: 24px;
-  max-width: 968px;
-  width: 100%;
-  margin: 26px auto 0px auto;
-  flex-wrap: wrap;
-  justify-content: center;
-  &::after {
-    content: "";
-    flex: auto;
-  }
-`;
 const MoreButton = styled.div`
   margin-top: 31px;
   text-align: center;
@@ -60,8 +47,6 @@ export const AdsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allPage, setAllPage] = useState(0);
   const [error, setError] = useState(false);
-
-  // const rowSkeletons = 20;
 
   // Receive ads on demand
   async function getAds(): Promise<AdData[]> {
@@ -120,23 +105,7 @@ export const AdsPage: React.FC = () => {
   return (
     <Wrapper>
       <Navigation />
-      <AdsContainer>
-        {adContext.ads &&
-          adContext.ads.map((ad: AdData) => {
-            return (
-              <Card
-                key={ad.id}
-                id={ad.id}
-                seen={ad.seen}
-                price={ad.price}
-                title={ad.title}
-                address={ad.address}
-                about={ad.about}
-                createdAt={ad.createdAt}
-              />
-            );
-          })}
-      </AdsContainer>
+      <AdsContainer />
 
       {(currentPage <= allPage) && (
         <MoreButton>
