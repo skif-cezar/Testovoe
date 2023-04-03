@@ -12,6 +12,10 @@ const NavigationContainer = styled.nav`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
+  @media(max-width: 540px) {
+    display: none;
+  }
 `;
 const ViewButtons = styled.ul`
   display: flex;

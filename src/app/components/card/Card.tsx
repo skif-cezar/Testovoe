@@ -41,6 +41,12 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     &:focus {
       filter: drop-shadow(0px 0px 11px rgba(0, 0, 0, 0.31));
     }
+
+    @media (max-width: 540px) {
+      flex-direction: column;
+      max-width: 224px;
+      height: 364px;
+    }
   `;
   const ViewedContainer = styled.div`
     position: absolute;
@@ -59,6 +65,13 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     border-top-right-radius: ${adContext.view ? "12px" : "0px"};
     border-bottom-left-radius: ${adContext.view ? "0px" : "12px"};
     background: #e8e8e8;
+
+    @media (max-width: 540px) {
+      width: 224px;
+      height: 260px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 0px;
+    }
   `;
   const Information = styled.div`
     width: 100%;
@@ -82,6 +95,15 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     }
     & div:nth-child(3) {
       margin-top: ${adContext.view ? "0px" : "30px"};
+    }
+
+    @media (max-width: 540px) {
+      padding: 10px 12px 19px 10px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 12px;
+      & div:nth-child(3) {
+        margin-top: 0px;
+      }
     }
   `;
   const Price = styled.span`
@@ -111,7 +133,11 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     width: 20px;
     height: 19px;
     font-size: 0;
-    background-color: ${(like.some((id: string) => {return id === props.id;})) ? "#00a0ab" : "#c7c7c7"};
+    background-color: ${like.some((id: string) => {
+    return id === props.id;
+  })
+    ? "#00a0ab"
+    : "#c7c7c7"};
     -webkit-mask-image: url(${likeImg});
     -webkit-mask-position: center;
     -webkit-mask-repeat: no-repeat;
@@ -146,7 +172,13 @@ export const Card: React.FC<AdData> = (props: AdData) => {
       <Information>
         <div>
           <Price>{`${props.price} ₽`}</Price>
-          <LikeIcon onClick={(e: React.MouseEvent<HTMLElement>) => {return onClickLike(e, props.id);}}>Понравилось</LikeIcon>
+          <LikeIcon
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              return onClickLike(e, props.id);
+            }}
+          >
+            Понравилось
+          </LikeIcon>
         </div>
         <div>
           <Title>{props.title}</Title>

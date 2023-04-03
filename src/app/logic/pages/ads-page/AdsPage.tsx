@@ -109,14 +109,14 @@ export const AdsPage: React.FC = () => {
 
       {(currentPage <= allPage) && (
         <MoreButton>
-          {adContext.loading ? (<Loader />) : (
+          {error && (<ErrorMessage onClick={showMoreAds} />)}
+          {(adContext.loading) ? (<Loader />) : (
             <Button
               text="Показать еще" onClick={() => {
                 return showMoreAds();
               }}
             />
           )}
-          {error && (<ErrorMessage onClick={showMoreAds} />)}
         </MoreButton>
       )}
 
