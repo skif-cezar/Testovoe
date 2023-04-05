@@ -56,6 +56,7 @@ export const Card: React.FC<AdData> = (props: AdData) => {
     right: 0;
     margin: 0 auto;
     text-align: center;
+    z-index: 5;
   `;
   const ImgContainer = styled.div`
     position: relative;
